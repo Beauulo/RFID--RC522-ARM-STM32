@@ -1,4 +1,4 @@
-# RFID--RC522-ARM-STM32
+# RFID-RC522-ARM-STM32
 # 🔐 STM32 RFID Door Lock System
 
 A secure and real-time door locking system using an **STM32F446RE** microcontroller, **RC522 RFID reader**, **servo motor**, and **I2C LCD display**. Built entirely using **STM32CubeIDE** with **HAL drivers**, this project demonstrates SPI, I2C, and PWM peripheral integration for embedded access control applications.
