@@ -55,8 +55,6 @@ uint8_t status;
 uint8_t str[16];
 uint8_t sNum[5];
 
-char *msg1="reading from card";
-char *msg2="reading from tag";
 
 /* USER CODE END PV */
 
@@ -73,7 +71,7 @@ static void MX_TIM3_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void set_servo_angle(TIM_HandleTypeDef *htim , uint32_t channel,uint8_t angle){
+void set_servo_angle(TIM_HandleTypeDef *htim , uint32_t channel,uint8_t angle){ // function to control servo motor angle
 	uint32_t pulse_length = 210 + (angle *(1050-210)/180);
 	__HAL_TIM_SET_COMPARE(htim,channel,pulse_length);
 }
@@ -135,18 +133,18 @@ int main(void)
 	  	  	  	  HD44780_PrintStr("SYSTEM");
 	  	  	  	  HD44780_SetCursor(5,1);
 	  	  	  	  HD44780_PrintStr("IDLING");
-	  	  	  	if((str[0]==19) && (str[1]==32) && (str[2]==143) && (str[3]==2) && (str[4]==47) ){
+	  	  	  	if((str[0]==19) && (str[1]==32) && (str[2]==143) && (str[3]==2) && (str[4]==47) ){  // test the id of the while rfid card 
 	  	  	  		  HD44780_Clear();
 	  	  	  		  HD44780_SetCursor(0,0);
 	  	  	  		  HD44780_PrintStr("ACCESS");
 	  	  	  		  HD44780_SetCursor(5,1);
 	  	  	  		  HD44780_PrintStr("GRANTED");
-	  	  	  		  set_servo_angle(&htim3,TIM_CHANNEL_1,0);
-	  	  	  		  HAL_Delay(3000);
-	  	  	  		  str[4]=0;
-	  	  	  	      set_servo_angle(&htim3,TIM_CHANNEL_1,120);
+	  	  	  		  set_servo_angle(&htim3,TIM_CHANNEL_1,0); // rotate servo to open door lock
+	  	  	  		  HAL_Delay(3000);  // delay before closing door lock 
+	  	  	  		  str[4]=0; // changing the value of id to change the state of if condition 
+	  	  	  	      set_servo_angle(&htim3,TIM_CHANNEL_1,120); // rotate servo to close door lock
 	  	  	  	  }
-	  	  	if(((str[0]==236) && (str[1]==32) && (str[2]==176) && (str[3]==1) && (str[4]==128) )){
+	  	  	if(((str[0]==236) && (str[1]==32) && (str[2]==176) && (str[3]==1) && (str[4]==128) )){ // test id of the rfid tag
 	  	  	  		  HD44780_Clear();
 	  	  	  		  HD44780_SetCursor(0,0);
 	  	  	  		  HD44780_PrintStr("ACCESS");
